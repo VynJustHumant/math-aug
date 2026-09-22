@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{xcolor}
+\title{Resep Kanvas \\ \large Pusaran Lautan Magma \& Air}
+\author{math-aug}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Domain Kanvas}
+
+Kanvas $\mathcal{C}$ adalah ruang piksel persegi panjang pada bidang
+$\mathbb{R}^2$:
+
+\begin{equation}
+\mathcal{C} = \bigl\{ (x, y) \in \mathbb{R}^2 \;\big|\; 0 \le x < W,\; 0 \le y < H \bigr\}
+\end{equation}
+
+dengan
+\begin{align}
+W &= 7680 \quad \text{(lebar, piksel)} \\
+H &= 4320 \quad \text{(tinggi, piksel)}
+\end{align}
+
+Origin $(0,0)$ di kiri-atas. Sumbu $x$ ke kanan, sumbu $y$ ke bawah.
+
+\section{Pembagian Tiga Lapisan}
+
+Kanvas terbagi menjadi tiga pita horizontal oleh dua garis horizon
+$y_1$ dan $y_2$:
+
+\begin{equation}
+y_1 = 1000, \qquad y_2 = 3320
+\end{equation}
+
+\begin{align}
+\text{Laut Air}   &:\quad \mathcal{L}_{\text{air}}   = \bigl\{ (x,y) \in \mathcal{C} \;\big|\; 0 \le y < y_1 \bigr\} \\
+\text{Langit}     &:\quad \mathcal{L}_{\text{langit}}= \bigl\{ (x,y) \in \mathcal{C} \;\big|\; y_1 \le y < y_2 \bigr\} \\
+\text{Laut Magma} &:\quad \mathcal{L}_{\text{magma}} = \bigl\{ (x,y) \in \mathcal{C} \;\big|\; y_2 \le y < H \bigr\}
+\end{align}
+
+Tinggi tiap lapisan:
+\begin{align}
+h_{\text{air}}   &= y_1 - 0     = 1000 \\
+h_{\text{langit}}&= y_2 - y_1   = 2320 \\
+h_{\text{magma}} &= H   - y_2   = 1000
+\end{align}
+
+\section{Titik Pusat Pusaran}
+
+Pusat pusaran air $\mathbf{c}_{\text{air}}$ dan pusaran magma
+$\mathbf{c}_{\text{magma}}$ masing-masing berada di titik tengah
+lapisannya terhadap sumbu $x$:
+
+\begin{align}
+\mathbf{c}_{\text{air}}   &= \bigl( \tfrac{W}{2},\; \tfrac{y_1}{2} \bigr)
+                            = (3840,\; 500) \\
+\mathbf{c}_{\text{magma}} &= \bigl( \tfrac{W}{2},\; \tfrac{y_2 + H}{2} \bigr)
+                            = (3840,\; 3820)
+\end{align}
+
+Radius maksimum pusaran:
+\begin{equation}
+r_{\max} = 450
+\end{equation}
+
+\section{Simetri Refleksi}
+
+Kedua pusaran simetris terhadap titik tengah kanvas
+$\mathbf{m} = \bigl( \tfrac{W}{2}, \tfrac{H}{2} \bigr) = (3840, 2160)$:
+
+\begin{equation}
+\mathbf{c}_{\text{magma}} = 2\mathbf{m} - \mathbf{c}_{\text{air}}
+\end{equation}
+
+Verifikasi:
+\begin{equation}
+2(3840, 2160) - (3840, 500) = (3840,\; 3820) = \mathbf{c}_{\text{magma}} \quad \checkmark
+\end{equation}
+
+\end{document}

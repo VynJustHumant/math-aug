@@ -49,7 +49,6 @@ elements into narrow bands that the eye reads as shadow, volume, or flow.
 | ID | Folder | Canvas | Primitives | Status |
 |----|--------|--------|------------|--------|
 | 01 | `universal/colliding-merging-particles/` | 7680×7680 | ~1,200 ellipses | ✅ done |
-| 02 | `universal/pusaran-magma-air/` | 7680×4320 | ~6,000 ellipses | 🚧 in progress |
 
 Each folder contains:
 - `src/` — the Python generator (pure NumPy)
@@ -93,24 +92,6 @@ def cloud_ellipses() -> tuple[np.ndarray, ...]:
 
 No arguments. No seeds. No randomness. Same output every time.
 
-### 02 — Pusaran Magma & Air (in progress)
-
-A vertically stacked composition: an air ocean on top, an empty sky in
-the middle, a magma ocean below. The two vortices are mirrored across
-the horizon.
-
-```python
-import sys, numpy as np
-sys.path.insert(0, "universal/pusaran-magma-air/src")
-import sky as SK
-
-sky_gradient = SK.sky_gradient()             # (2320, 7680, 3) uint8
-cx, cy, w, h, alpha = SK.cloud_ellipses()    # cloud ellipses in the sky band
-```
-
-Status: sky layer complete. Ocean layers (air vortex + magma vortex)
-not yet implemented.
-
 ## Visual Output
 
 ### 01 — Colliding and Merging Particles
@@ -130,29 +111,18 @@ $$b_i = 1 - \left| 2u_i - 1 \right|^{3/2}$$
 The bulge weight `b_i` densifies the middle of the stream, which the eye
 reads as the collision and merger zone.
 
-### 02 — Pusaran Magma & Air
-
-![Pusaran Magma Air — sky layer](universal/pusaran-magma-air/sky.png)
-
-Sky layer only. Air vortex and magma vortex are the next milestones.
-
 ## Repository Layout
 
 ```
 math-aug/
 ├── universal/
-│   ├── colliding-merging-particles/
-│   │   ├── src/particles.py
-│   │   ├── recipe/particles.tex
-│   │   ├── artwork.png
-│   │   ├── panel.png
-│   │   ├── final.png
-│   │   └── preview_final.png
-│   └── pusaran-magma-air/
-│       ├── src/sky.py
-│       ├── recipe/
-│       ├── sky.png
-│       └── sky_full.png
+│   └── colliding-merging-particles/
+│       ├── src/particles.py
+│       ├── recipe/particles.tex
+│       ├── artwork.png
+│       ├── panel.png
+│       ├── final.png
+│       └── preview_final.png
 └── README.md
 ```
 
@@ -210,3 +180,4 @@ deterministic visual output.
 ## License
 
 MIT — see [LICENSE](LICENSE).
+```

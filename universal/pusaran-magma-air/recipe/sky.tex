@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=2.5cm]{geometry}
+\title{Resep Langit \\ \large Pusaran Lautan Magma \& Air}
+\author{math-aug}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Domain Langit}
+
+\begin{equation}
+\mathcal{L}_{\text{langit}} = \{(x, y) \in \mathcal{C} \mid y_1 \le y < y_2\}
+\end{equation}
+
+dengan $y_1 = 1000$, $y_2 = 3320$, dan titik tengah $y_m = (y_1 + y_2)/2 = 2160$.
+
+\section{Gradien Langit (Pixel Spatial Network)}
+
+Untuk setiap piksel $(x, y) \in \mathcal{L}_{\text{langit}}$:
+
+\begin{equation}
+t(x, y) = \frac{|y - y_m|}{h_{\text{langit}} / 2}, \qquad h_{\text{langit}} = y_2 - y_1 = 2320
+\end{equation}
+
+\begin{equation}
+h(x, y) = \mathrm{clip}\!\left( t(x, y) + a \sin\!\left( \frac{2\pi k x}{W} \right),\, 0,\, 1 \right)
+\end{equation}
+
+dengan $a = 0.05$, $k = 10$, $W = 7680$.
+
+Warna RGB didefinisikan palet siang $\mathcal{P}_{\text{siang}}$
+melalui interpolasi piecewise-linear:
+
+\begin{equation}
+\mathbf{C}_{\text{langit}}(x, y) = \mathcal{P}_{\text{siang}}(h(x, y))
+\end{equation}
+
+dengan anchor:
+\begin{align}
+\mathcal{P}_{\text{siang}}(0.0) &= (30, 80, 170) \\
+\mathcal{P}_{\text{siang}}(0.5) &= (135, 190, 230) \\
+\mathcal{P}_{\text{siang}}(1.0) &= (240, 248, 255)
+\end{align}
+
+\section{Awan sebagai Agregasi Elips}
+
+Untuk $i = 0, \ldots, N - 1$ dengan $N = 500$, misal $u_i = i/(N-1)$.
+Elips ke-$i$ memiliki pusat dan semi-sumbu:
+
+\begin{align}
+\mathbf{c}_i &= \bigl( W u_i,\; y_m + A_1 \sin(3\pi u_i) + A_2 \sin(7\pi u_i) \bigr) \\
+s_i^x &= \tfrac{1}{2}\bigl( s_{\min} + s_{\max} \sin^{p}(\pi u_i) \bigr) \\
+s_i^y &= \rho\, s_i^{x} \\
+\alpha_i &= \alpha_{\min} + \alpha_{\max} \sin^{q}(\pi u_i)
+\end{align}
+
+Parameter: $A_1 = 300$, $A_2 = 200$, $s_{\min}=150$, $s_{\max}=500$,
+$p=4$, $\rho=0.35$, $\alpha_{\min}=20$, $\alpha_{\max}=100$, $q=2$.
+
+Warna elips: putih $(255, 255, 255)$ dicampur dengan warna langit
+melalui compositing alpha $\alpha_i$.
+
+\section{Peran Spatial Compression}
+
+Eksponen $p = 4$ dan $q = 2$ menerapkan \emph{spatial compression}:
+puncak $\sin^{p}(\pi u)$ memusatkan elips besar dan padat di sekitar
+$u = 1/2$ (pusat horizontal kanvas), sedangkan di tepi $u \to 0$ dan
+$u \to 1$ elips mengecil dan memudar secara halus. Gradien kerapatan
+ini dipersepsikan mata sebagai struktur awan yang organik.
+
+\end{document}
